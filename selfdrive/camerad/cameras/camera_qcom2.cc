@@ -926,8 +926,7 @@ void handle_camera_event(CameraState *s, void *evdat) {
 }
 
 static void set_camera_exposure(CameraState *s, float grey_frac) {
-  float target_grey = 0.4;
-
+  float target_grey = 0.3;
 
   float new_ev = s->cur_ev * target_grey / grey_frac;
   new_ev = std::clamp(new_ev, s->min_ev, s->max_ev);
