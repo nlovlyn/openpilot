@@ -23,7 +23,7 @@ class CarInterface(CarInterfaceBase):
     ret.steerActuatorDelay = 0.12  # Default delay, Prius has larger delay
     ret.steerLimitTimer = 0.4
 
-    ret.stoppingControl = False # Toyota starts braking more when it thinks you want to stop
+    ret.stoppingControl = True # Default: False - Toyota starts braking more when it thinks you want to stop
 
     if candidate not in [CAR.PRIUS, CAR.RAV4, CAR.RAV4H]:  # These cars use LQR/INDI
       ret.lateralTuning.init('pid')
