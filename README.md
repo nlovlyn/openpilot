@@ -3,7 +3,7 @@
 Table of Contents
 =======================
 
-* [What is openpilot?](#what-is-openpilot)
+* [What is openpilot?](#what-is-openpilot) 
 * [Integration with Stock Features](#integration-with-stock-features)
 * [Supported Hardware](#supported-hardware)
 * [Supported Cars](#supported-cars)
