@@ -30,8 +30,8 @@ NetworkType = log.DeviceState.NetworkType
 NetworkStrength = log.DeviceState.NetworkStrength
 CURRENT_TAU = 15.   # 15s time constant
 CPU_TEMP_TAU = 5.   # 5s time constant
-DAYS_NO_CONNECTIVITY_MAX = 7  # do not allow to engage after a week without internet
-DAYS_NO_CONNECTIVITY_PROMPT = 4  # send an offroad prompt after 4 days with no internet
+DAYS_NO_CONNECTIVITY_MAX = 90  # Default: 7 do not allow to engage after a week without internet
+DAYS_NO_CONNECTIVITY_PROMPT = 30  # Default: 4 send an offroad prompt after 4 days with no internet
 DISCONNECT_TIMEOUT = 5.  # wait 5 seconds before going offroad after disconnect so you get an alert
 
 prev_offroad_states: Dict[str, Tuple[bool, Optional[str]]] = {}
@@ -84,9 +84,9 @@ def set_eon_fan(val):
 
 
 # temp thresholds to control fan speed - high hysteresis
-_TEMP_THRS_H = [50., 65., 80., 10000]
+_TEMP_THRS_H = [40., 50., 65., 80]
 # temp thresholds to control fan speed - low hysteresis
-_TEMP_THRS_L = [42.5, 57.5, 72.5, 10000]
+_TEMP_THRS_L = [35, 45, 55, 70]
 # fan speed options
 _FAN_SPEEDS = [0, 16384, 32768, 65535]
 # max fan speed only allowed if battery is hot
@@ -114,7 +114,7 @@ def handle_fan_eon(max_cpu_temp, bat_temp, fan_speed, ignition):
 
 
 def handle_fan_uno(max_cpu_temp, bat_temp, fan_speed, ignition):
-  new_speed = int(interp(max_cpu_temp, [40.0, 80.0], [0, 80]))
+  new_speed = int(interp(max_cpu_temp, [35.0, 65.0], [0, 90]))
 
   if not ignition:
     new_speed = min(30, new_speed)
