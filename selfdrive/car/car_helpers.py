@@ -145,13 +145,13 @@ def fingerprint(logcan, sendcan):
     for b in candidate_cars:
       # Toyota needs higher time to fingerprint, since DSU does not broadcast immediately
       if only_toyota_left(candidate_cars[b]):
-        frame_fingerprint = 100  # 1s
+        frame_fingerprint = 1000  # 1s
       if len(candidate_cars[b]) == 1 and frame > frame_fingerprint:
           # fingerprint done
           car_fingerprint = candidate_cars[b][0]
 
     # bail if no cars left or we've been waiting for more than 2s
-    failed = (all(len(cc) == 0 for cc in candidate_cars.values()) and frame > frame_fingerprint) or frame > 200
+    failed = (all(len(cc) == 0 for cc in candidate_cars.values()) and frame > frame_fingerprint) or frame > 1100
     succeeded = car_fingerprint is not None
     done = failed or succeeded
 
