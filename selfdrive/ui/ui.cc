@@ -348,7 +348,7 @@ void Device::setAwake(bool on, bool reset) {
 
 void Device::updateBrightness(const UIState &s) {
   float brightness_b = 10;
-  float brightness_m = 0.1; // Default: 0.1
+  float brightness_m = 0.5; // Default: 0.1
   float clipped_brightness = std::min(100.0f, (s.scene.light_sensor * brightness_m) + brightness_b);
   if (!s.scene.started) {
     clipped_brightness = BACKLIGHT_OFFROAD;
@@ -371,8 +371,8 @@ void Device::updateWakefulness(const UIState &s) {
   bool should_wake = s.scene.started || s.scene.ignition;
   if (!should_wake) {
     // tap detection while display is off
-    bool accel_trigger = abs(s.scene.accel_sensor - accel_prev) > 0.2;  // Default: 0.2
-    bool gyro_trigger = abs(s.scene.gyro_sensor - gyro_prev) > 0.15;  // Default: 0.15
+    bool accel_trigger = abs(s.scene.accel_sensor - accel_prev) > 0.1;  // Default: 0.2
+    bool gyro_trigger = abs(s.scene.gyro_sensor - gyro_prev) > 0.1;  // Default: 0.15
     should_wake = accel_trigger && gyro_trigger;
     gyro_prev = s.scene.gyro_sensor;
     accel_prev = (accel_prev * (accel_samples - 1) + s.scene.accel_sensor) / accel_samples;
